@@ -21,7 +21,7 @@ This application allows users to automatically generate a README.md file with us
     
 To generate your own README.md file, 
 - Navigate to the [README Generator](https://github.com/devkjoon/readme-generator) and git pull the latest repository to your local machine
-- Run `npm install `  in order to install `inquirer`
+- Run `npm install`  in order to install `inquirer`
 - Using your terminal, use the command `node index.js` to initialize the application
     
 ## Usage
