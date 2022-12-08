@@ -1,8 +1,10 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-const generateREADME = ({ title, description, installation, usage, contributions, tests, license, github, email }) =>
-    `# ${title}  <a href="${licenseLink}" target="_blank"><img align="right" src="${badge}" alt="Badge"></a>
+const generateREADME = ({ title, description, installation, usage, contributions, tests, license, github, email, badge,}) =>
+
+    `# ${title} 
+    ${badge}
     
     ## Description
 
@@ -35,7 +37,7 @@ const generateREADME = ({ title, description, installation, usage, contributions
 
     ## License
 
-    ${license}
+    ${license} License
 
     ## Questions
         
@@ -165,8 +167,8 @@ inquirer
             type: "input",
             name: "email",
             message: "What is your email?",
-            validate: (testsInput) => {
-            if (testsInput) {
+            validate: (emailInput) => {
+            if (emailInput) {
                 return true;
             } else {
                 console.log("Please input your email!");
@@ -176,48 +178,52 @@ inquirer
         },
     ])
     .then((answers) => {
-        const readmePageContent = generateREADME(answers);
-        const renderBadge = renderBadge(answers)
-        const licenseLink = licenseLink(answers)
-        function renderBadge(license) {
-            let badge = ''
-            if (license === 'Apache 2.0') {
-                badge = `![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)`
-            } else if (license === 'Boost') {
-                badge = `![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt)`
-            } else if (license === 'GNU APGL v3') {
-                badge = `![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)`
-            } else if (license === 'MIT') {
-                badge = `![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`
-            } else if (license === 'Perl') {
-                badge = `![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)`
-            } else {
-                badge = ''
-            }
-            return badge;
-        }
-    
-        function licenseLink(license) {
-            let licenseLink = ''
-            if (license === 'Apache 2.0') {
-                licenseLink = `(https://opensource.org/licenses/Apache-2.0`
-            } else if (license === 'Boost') {
-                licenseLink = `https://www.boost.org/LICENSE_1_0.txt`
-            } else if (license === 'GNU APGL v3') {
-                licenseLink = `https://www.gnu.org/licenses/agpl-3.0`
-            } else if (license === 'MIT') {
-                licenseLink = `https://opensource.org/licenses/MIT`
-            } else if (license === 'Perl') {
-                licenseLink = `https://opensource.org/licenses/Artistic-2.0`
-            } else {
-                licenseLink = ''
-            }
-            return licenseLink;
-        }
+      const readmePageContent = generateREADME(answers);
+      renderBadge(answers)
+      licenseLink(answers)
 
-        fs.writeFile('README.md', readmePageContent, renderBadge, licenseLink, (err) => {
+        fs.writeFile('README.md', readmePageContent, (err) => {
             err ? console.log(err) : console.log('Successfully generated README!')
         })
     })
+
+    function renderBadge(license) {
+        let badge = ''
+        if (license === 'Apache 2.0') {
+            badge = `![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)]`
+        } else if (license === 'Boost') {
+            badge = `![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)]`
+        } else if (license === 'GNU APGL v3') {
+            badge = `![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)]`
+        } else if (license === 'MIT') {
+            badge = `![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]`
+        } else if (license === 'Perl') {
+            badge = `![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)]`
+        } else {
+            badge = ''
+        }
+        return badge;
+        generateREADME(badge)
+    }
+
+    function licenseLink(license) {
+        let licenseLink = ''
+        if (license === 'Apache 2.0') {
+            licenseLink = `(https://opensource.org/licenses/Apache-2.0`
+        } else if (license === 'Boost') {
+            licenseLink = `https://www.boost.org/LICENSE_1_0.txt`
+        } else if (license === 'GNU APGL v3') {
+            licenseLink = `https://www.gnu.org/licenses/agpl-3.0`
+        } else if (license === 'MIT') {
+            licenseLink = `https://opensource.org/licenses/MIT`
+        } else if (license === 'Perl') {
+            licenseLink = `https://opensource.org/licenses/Artistic-2.0`
+        } else {
+            licenseLink = ''
+        }
+        return licenseLink;
+    }
+
+    
 
     
