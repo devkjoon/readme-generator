@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateREADME = require('./generateREADME.js')
 
 inquirer
     .prompt([
@@ -26,17 +27,26 @@ inquirer
         {
             type: 'input',
             name: 'contributions',
-            message: 'What type of contributions would you like to see?'
+            message: 'How can others contribute?'
         },
         {
             type: 'input',
             name: 'tests',
-            message: 'Enter your test instructions!'
+            message: 'How do you test this project?'
+            validate: testsInput => {
+                if (testsInput) {
+                    return true
+                } else {
+                    console.log('Please explain how to test this project!');
+                    return false
+                }
+            }
         },
         {
-            type: 'input',
+            type: 'list',
             name: 'license',
             message: 'What license is your project?',
+            choices: ['AGPLv3', 'Apache', 'BSD 2-clause', 'GPLv3', 'MIT', 'LGPLv3', 'other']
         },
         {
             type: 'input',
