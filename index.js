@@ -2,7 +2,7 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 
 const generateREADME = ({ title, description, installation, usage, contributions, tests, license, github, email }) =>
-    `# ${title}
+    `# ${title}  <a href="${licenseLink}" target="_blank"><img align="right" src="${badge}" alt="Badge"></a>
     
     ## Description
 
@@ -18,13 +18,14 @@ const generateREADME = ({ title, description, installation, usage, contributions
     
     ## Installation
     
+    For this application to function, you must install the following: 
     ${installation}
     
     ## Usage
     
     ${usage}
 
-    ## Contributions
+    ## Contributing
 
     ${contributions}
 
@@ -35,6 +36,13 @@ const generateREADME = ({ title, description, installation, usage, contributions
     ## License
 
     ${license}
+
+    ## Questions
+        
+    If you have any questions, feel free to contact me at
+    Github: https://github.com/${github}
+    or
+    Email: ${email}
     `
 
 inquirer
@@ -124,12 +132,11 @@ inquirer
             name: "license",
             message: "What license is your project?",
             choices: [
-            "AGPLv3",
-            "Apache",
-            "BSD 2-clause",
-            "GPLv3",
+            "Apache 2.0",
+            "Boost",
+            "GNU AGPL v3",
             "MIT",
-            "LGPLv3",
+            "Perl",
             "other",
             ],
             validate: (licenseInput) => {
@@ -170,8 +177,47 @@ inquirer
     ])
     .then((answers) => {
         const readmePageContent = generateREADME(answers);
+        const renderBadge = renderBadge(answers)
+        const licenseLink = licenseLink(answers)
+        function renderBadge(license) {
+            let badge = ''
+            if (license === 'Apache 2.0') {
+                badge = `![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)`
+            } else if (license === 'Boost') {
+                badge = `![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt)`
+            } else if (license === 'GNU APGL v3') {
+                badge = `![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)`
+            } else if (license === 'MIT') {
+                badge = `![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`
+            } else if (license === 'Perl') {
+                badge = `![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)`
+            } else {
+                badge = ''
+            }
+            return badge;
+        }
+    
+        function licenseLink(license) {
+            let licenseLink = ''
+            if (license === 'Apache 2.0') {
+                licenseLink = `(https://opensource.org/licenses/Apache-2.0`
+            } else if (license === 'Boost') {
+                licenseLink = `https://www.boost.org/LICENSE_1_0.txt`
+            } else if (license === 'GNU APGL v3') {
+                licenseLink = `https://www.gnu.org/licenses/agpl-3.0`
+            } else if (license === 'MIT') {
+                licenseLink = `https://opensource.org/licenses/MIT`
+            } else if (license === 'Perl') {
+                licenseLink = `https://opensource.org/licenses/Artistic-2.0`
+            } else {
+                licenseLink = ''
+            }
+            return licenseLink;
+        }
 
-        fs.writeFile('README.md', readmePageContent, (err) => {
+        fs.writeFile('README.md', readmePageContent, renderBadge, licenseLink, (err) => {
             err ? console.log(err) : console.log('Successfully generated README!')
         })
     })
+
+    
