@@ -44,6 +44,8 @@ THEN I am taken to the corresponding section of the README
 
 ## Preview
 
+[Application Demonstration.webm](https://user-images.githubusercontent.com/114375310/206536680-75ff9db6-6741-4cb8-aeb9-f384fff52922.webm)
+
 ## License
 
 See LICENSE in repo
