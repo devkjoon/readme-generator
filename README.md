@@ -1,9 +1,9 @@
 # Readme Generator 
-    undefined
+    [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
     
     ## Description
 
-    This is a generator to automatically create a readme for your project
+    This project automatically generates a professional readme with console user input
 
     ## Table of Contents
 
@@ -16,28 +16,26 @@
     ## Installation
     
     For this application to function, you must install the following: 
-    npm install inquirer
+    later
     
     ## Usage
     
-    Later
+    later
 
     ## Contributing
 
-    Later
+    later
 
     ## Tests
 
-    Later
+    later
 
     ## License
 
-    MIT
+    MIT License
 
     ## Questions
         
     If you have any questions, feel free to contact me at
-    Github: https://github.com/devkjoon
-    or
-    Email: devkjoon@gmail.com
+    Github: https://github.com/devkjoon or Email: devkjoon@gmail.com
     
